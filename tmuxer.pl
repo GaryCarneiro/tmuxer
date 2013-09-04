@@ -1,16 +1,14 @@
 #!/usr/bin/env perl
 
-use strict ;
-use warnings ;
+use strict;
+use warnings;
 
 my $TMUX='/usr/bin/tmux';
 
-$ARGV[0] =~ /.*\./;
-my $session_name = $1;
-
+my $session_name = substr($ARGV[0],0,index($ARGV[0],'.tconf'));
 
 print "Got Argument: $ARGV[0]\n";
-print "Got Regex: $session_name\n";
+print "Got SessionName: $session_name\n";
 
 open(HF, "$ARGV[0]") ; #Host File
 
