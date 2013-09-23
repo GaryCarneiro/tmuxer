@@ -1,0 +1,3 @@
+Get hostlist from file ( e.g. INPUT=pirates.tconf)
+Generate yaml based upon filename ( e.g. OUTPUT=pirates.yaml )
+tmuxinator  open  pirates
