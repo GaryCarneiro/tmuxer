@@ -1,3 +1,5 @@
-Get hostlist from file ( e.g. INPUT=pirates.tconf)
+Get hostlist from file ( e.g. INPUT=pirates.tconf) (using -h option)
+Generate command from list  if '-c' option is given
+
 Generate yaml based upon filename ( e.g. OUTPUT=pirates.yaml )
 tmuxinator  open  pirates
