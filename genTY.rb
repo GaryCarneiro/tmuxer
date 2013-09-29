@@ -1,12 +1,21 @@
 #!/usr/bin/env ruby
 
+require 'optparse'
+
+
+$hostFile = ''
+$cmdFile = ''
 
 if ARGV[0].nil?
-    print "Pass some hostfile Matey !!"
+    print "File Argument Missing"
     exit 1
 else
-    print "Awright got file #{ARGV[0]}\n"
+    print "Got input file #{ARGV[0]}\n"
 end
+
+OptionParser.new do |opts|
+  opts.banner = "Usage #{$ARGC} [ -c --cmdfile <FILEPATH> ] | [--hostsfile <FILEPATH> ]"
+
 
 
 File.readlines(ARGV[0]).each { |host| print host }
