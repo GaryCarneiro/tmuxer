@@ -29,9 +29,15 @@ else
     exit
 end
 
+hostdict = {}
 session['root'] = Dir.pwd
 
-#print session
-File.readlines($cli['file']).each { | host | print host }
 
-print YAML.dump(session)
+
+File.readlines($cli['file']).each { | host |  hostdict[host.chomp] = "ssh -2 #{host.chomp}" }
+
+print "\nHostdict", hostdict
+session['window'] = hostdict
+
+print session
+print YAML.dump(session) 
