@@ -34,7 +34,7 @@ session['root'] = Dir.pwd
 
 
 
-File.readlines($cli['file']).each { | host |  hostdict[host.chomp] = "ssh -2 #{host.chomp}" }
+File.readlines($cli['file']).each { | host |  hostdict[#{host.chomp + ':'}] = "ssh -2 #{host.chomp}" }
 
 print "\nHostdict", hostdict
 session['window'] = hostdict
