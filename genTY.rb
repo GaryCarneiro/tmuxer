@@ -19,8 +19,10 @@ session =  {}
 #print $cli
 
 if $cli.key? "hostfile"
-  session['name'] = $cli['hostfile'].split('.txt')
+  $cli['file'] = $cli['hostfile']
+  session['name'] = $cli['hostfile'].split('.txt')[0]
 elsif $cli.key? "cmdfile"
+  $cli['file'] = $cli['cmdfile']
   session['name'] = $cli['cmdfile'].split('.txt')
 else
     print "Please pass either commandfile or hostfile"
@@ -29,5 +31,7 @@ end
 
 session['root'] = Dir.pwd
 
-# print session
+#print session
+File.readlines($cli['file']).each { | host | print host }
 
+print YAML.dump(session)
