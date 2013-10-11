@@ -6,16 +6,12 @@ require 'optparse'
 $hostFile = ''
 $cmdFile = ''
 
-if ARGV[0].nil?
-    print "File Argument Missing"
-    exit 1
-else
-    print "Got input file #{ARGV[0]}\n"
+
+OptionParser.new do | opts |
+  opts.banner = "Usage #{$ARGC} [ -c --cmdfile <FILEPATH> ] | [--hostsfile <FILEPATH> ]"
+  opts.on("-c", "--cmdfile=val", String) { | $cmdFile | }
+  opts.on("-f", "--hostfile=val", String) { |$hostFile| }
+  opts.on_tail("-h", "--help")
+  opts.parse!
 end
 
-OptionParser.new do |opts|
-  opts.banner = "Usage #{$ARGC} [ -c --cmdfile <FILEPATH> ] | [--hostsfile <FILEPATH> ]"
-
-
-
-File.readlines(ARGV[0]).each { |host| print host }
