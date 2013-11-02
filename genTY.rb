@@ -1,11 +1,24 @@
 #!/usr/bin/env ruby
 
+=begin
+This script generates TMUXinator input files in YAML Format
+=end
+
+#############################################
+#Importing Modules
 require 'optparse'
 require 'yaml'
+#############################################
 
 $cli={}
 
+hostList = []
 
+session =  {}
+session['root'] = Dir.pwd
+
+#############################################
+#Option Parsing
 OptionParser.new do | opts |
   opts.banner = "Usage #{$0} [ -c --cmdfile <FILEPATH> ] | [--hostsfile <FILEPATH> ]"
   opts.on("-f", "--hostfile=val", String) { |hostfile| $cli['hostfile'] = hostfile }
@@ -13,10 +26,12 @@ OptionParser.new do | opts |
   opts.on_tail("-h", "--help")
   opts.parse!
 end
-
-session =  {}
+#############################################
 
 #print $cli
+
+#############################################
+#Option Validatin
 
 if $cli.key? "hostfile"
   $cli['file'] = $cli['hostfile']
@@ -28,16 +43,20 @@ else
     print "Please pass either commandfile or hostfile"
     exit
 end
-
-hostdict = {}
-session['root'] = Dir.pwd
+#############################################
 
 
 
-File.readlines($cli['file']).each { | host |  hostdict[#{host.chomp + ':'}] = "ssh -2 #{host.chomp}" }
+#############################################
 
-print "\nHostdict", hostdict
-session['window'] = hostdict
+File.readlines($cli['file']).each { | host | hostList << { host.chomp => "ssh -2 #{host.chomp}" }  } # See dump_yaml.rb
 
-print session
-print YAML.dump(session) 
+print "-" * 200
+print "\nHost Dictionary = #{hostList} \n" 
+session['windows'] = hostList
+
+print  "-" * 200
+print "\nSession Dictionary = #{session}\n"
+print  "-" * 200
+
+print "\nYAML Dump for Session Dictionary is .. \n#{YAML.dump(session)}"
